@@ -2,65 +2,68 @@
 // @name        Difference Contributors
 // @namespace   jmizv
 // @include     https://www.discogs.com/stats/contributors*
-// @version     1
+// @version     2
 // @grant       none
 // ==/UserScript==
 var cells = document.getElementsByTagName('tr');
 var currUser = document.getElementById('site_account_menu');
 var currUserName = currUser.getAttribute('data-title').replace('Logged in as ','');
+var header = document.getElementsByTagName('thead');
 
+// first collect the points 
 counter = 0;
-var vals = [
+var values = [
 ];
-for (i = 0; i < cells.length; ++i)
-{
-  if (cells[i].className == 'odd' || cells[i].className == 'even')
-  {
-    vals.push(cells[i].childNodes[5]);
+for (i = 0; i < cells.length; ++i) {
+  if (cells[i].className == 'odd' || cells[i].className == 'even') {
+    values.push(cells[i].childNodes[5]);
   }
-} // ####
+}
 
-for (i = 0; i < vals.length; ++i)
-{
+// add table header
+var headerRow = header[0].childNodes[1];
 
+function createAdditionalHeader(text) {
+  var headerElementToNext = document.createElement("th");
+  headerElementToNext.textContent = text;
+  headerRow.appendChild(headerElementToNext);
+}
 
-  // Hier den aktuellen Nutzer mal highlighten.
-    var hrf = vals[i].parentNode.childNodes[3].childNodes[1].childNodes[1].getAttribute('href');
-    if(hrf.indexOf(currUserName) != -1 && (hrf.indexOf(currUserName) == (hrf.length - currUserName.length)))
-    {
-      vals[i].parentNode.style.background = '#efdfdf';
+createAdditionalHeader("Points to next");
+createAdditionalHeader("Points to Top");
+createAdditionalHeader("Points to Bottom");
+
+// add new table columns
+for (i = 0; i < values.length; ++i) {
+  // Try to highlight current user
+    var hrf = values[i].parentNode.childNodes[3].childNodes[1].childNodes[1].getAttribute('href');
+    if (hrf.indexOf(currUserName) != -1 && (hrf.indexOf(currUserName) == (hrf.length - currUserName.length))) {
+      values[i].parentNode.style.background = '#efdfdf';
     }
 
   var nEl = document.createElement('td');
-  if (i != 0)
-  {
-    nEl.textContent = diff(vals, i - 1, i, '⬆');
-  } 
-  else
-  {
+  if (i != 0) {
+    nEl.textContent = diff(values, i - 1, i, '⬆');
+  } else {
     nEl.textContent = ' ';
   }
-  vals[i].parentNode.appendChild(nEl);
+  values[i].parentNode.appendChild(nEl);
   var fEl = document.createElement('td');
-  if (i != 0)
-  {
-    fEl.textContent = "⬆ " + diff(vals, 0, i);
-  } 
-  else {
+  if (i != 0) {
+    fEl.textContent = "⬆ " + diff(values, 0, i);
+  } else {
     fEl.textContent = ' ';
   }
-  vals[i].parentNode.appendChild(fEl);
+  values[i].parentNode.appendChild(fEl);
   var lEl = document.createElement('td');
-  if (i != vals.length - 1)
-  {
-    lEl.textContent = "⬇ " + diff(vals, i, vals.length - 1);
-  } 
-  else
-  {
+  if (i != values.length - 1) {
+    lEl.textContent = "⬇ " + diff(values, i, values.length - 1);
+  } else {
     lEl.textContent = ' ';
   }
-  vals[i].parentNode.appendChild(lEl);
+  values[i].parentNode.appendChild(lEl);
 }
-function diff(vals, i1, i2) {
-  return parseInt(vals[i1].textContent.replace(',', '')) - parseInt(vals[i2].textContent.replace(',', ''))
+
+function diff(values, i1, i2) {
+  return parseInt(values[i1].textContent.replace(',', '')) - parseInt(values[i2].textContent.replace(',', ''))
 }
