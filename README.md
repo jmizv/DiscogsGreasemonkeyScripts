@@ -1,13 +1,18 @@
 # DiscogsGreasemonkeyScripts
-A collection of scripts for the Firefox Greasemonkey addon that helps to work faster and/or have a better user experience with [discogs.com](https://www.discogs.com).
+A collection of scripts for the [Firefox](https://www.mozilla.org/en-US/firefox/new/) [Greasemonkey](https://www.greasespot.net/) addon that helps to work faster and/or have a better user experience with [discogs.com](https://www.discogs.com).
+
+These scripts are currently tested with Firefox 86.0 (64 bit) and GreaseMonkey 4.11.
 
 ## Show how many points you need to reach next place in contributor list
 
 Script: `ContributionChart.AddDifferences.js`
 
-This will simply add three new columns to the [contributor list](https://www.discogs.com/stats/contributors?page=20). If you give a damn about your points, you might be interested
+This will simply add three new columns to the [contributor list](https://www.discogs.com/stats/contributors?page=20).
+If you give a damn about your points, you might be interested
 in knowing how many points (edits) you need to advance to the next page. I lost interest
 in aiming for new points but anyways.
+
+Also it highlights your user entry if logged in.
 
 ![Preview of script](./img/ContributionChart.AddDifferences.png)
 
@@ -35,7 +40,25 @@ field, add a submission note of "Correct use of 'Real name', cf. [g18.1]."
 and submit the form to the preview. The last thing you need to do is pushing
 the green button "Submit Changes to Artist Page".
 
-Please be careful what you do here. Make sure you understand the guidelines
+**Please be careful what you do here.** Make sure you understand the guidelines
 noted in [Discogs Guidelines §18 Updating An Artist Profile](https://support.discogs.com/hc/en-us/articles/360005055513-Database-Guidelines-18-Updating-An-Artist-Profile#Real_Name).
 
 ![Preview of script](./img/EditArtist.WrongRealName.png)
+
+## Less distraction on the Sell Item page
+
+Script: `SellItem.TidyUpPage.js`
+
+This script will remove some of the elements on the page. I, for example,
+hit way too often the "How do I grade my items?" link which is in my
+case totally unintended and then I have to close the newly opened tab.
+And I don't use the text field for "Item Location" and "Private comments",
+neither.
+
+Additionally this script can automatically check the box for "Allow offers".
+
+### Before the script
+![Before the script](./img/SellItem.TidyUpPage.1.png)
+
+### After the script
+![After the script](./img/SellItem.TidyUpPage.2.png)
